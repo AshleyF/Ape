@@ -64,8 +64,8 @@ I like this much better than adding them to the core language!
 
 You may have also noticed that the standard Lisp-esque car and cdr (or Haskell-esque head and tail) are missing from the language. They can be defined in terms of uncons:
 
-> [snoc swap pop] head let
-> [snoc pop]      tail let
+> [snoc swap drop] head let
+> [snoc drop]      tail let
 
 ## Boolean Logic ##
 
@@ -77,10 +77,10 @@ Using the symbols #t and #f to mean True and False (in Scheme-esque fashion), we
 
 And we can start implementing the standard Boolean logic operators (not, and, or, xor) in terms of this:
 
-> [#f #t if]                  not? let
-> [[] [pop #f] if]            and? let
-> [[pop #t] [#t #t #f eq] if] or?  let
-> [#t [not?] [] eq]           xor? let
+> [#f #t if]                   not? let
+> [[] [drop #f] if]            and? let
+> [[drop #t] [#t #t #f eq] if] or?  let
+> [#t [not?] [] eq]            xor? let
 
 Also useful will be to create function that check equality to well known values and return #t or #f for use with other Boolean operators:
 
