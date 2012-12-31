@@ -1,5 +1,7 @@
 # Barebones #
 
+There are but four operations: One for abstraction (let bindings), two for composition (cons/snoc), and one equality (eq) op. Inspired by Joy and Factor, there are “words” and there are “quotations”. The mechanics are made from two stacks and a dictionary. The first stack is for data, the second for program continuation.
+
 What I really set out to do was to see what the minimal set of primitives should be. I found it annoying that Joy and Cat had all these stack manipulation primitives such as “dip”, “dup”, “pop”, “swap”, etc. My little moment of eureka was when I realized I could add a “let” primitive and get my scoped binding as well as be able to get rid of these other primitives!
 
 The language and data structure revolves around an extremely simplified AST structure:
