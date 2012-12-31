@@ -17,13 +17,17 @@ We have atomic Words and composite Quotations (of Words and/or other Quotes). Th
 We need a means of composing and decomposing structures. This is done through cons (adding a given node to a List) and snoc (breaking a given List into it’s “head” node and “tail” remaining List). For example:
 
 > a []      cons yields [a]
+
 > a [b c]   cons yields [a b c]
+
 > [a] [b c] cons yields [[a] b c]
 
 Decomposition yields the opposite:
 
 > [a]       snoc yields a []
+
 > [a b c]   snoc yields a [b c]
+
 > [[a] b c] snoc yields [a] [b c]
 
 ## eq ##
@@ -31,6 +35,7 @@ Decomposition yields the opposite:
 For Symbols to be of any use at all, we need at least one operation we can perform on them. The single operation in the language is eq which compares two Symbols (or Lists) and evaluates one or another expression as a result. It takes four arguments, compares the first two and evaluates the third or fourth. For example:
 
 > foo foo yes no eq yields yes
+
 > foo bar yes no eq yields no
 
 The equality comparison walks the complete structure in the case of Quotes. For example:
@@ -54,10 +59,15 @@ And now can, for example, use our new “word” to cons three Symbols onto an e
 Now back to the so-called primitives who’s existence I found annoying in Joy and Cat. These can now be implemented in terms of the core four (cons, uncons, eq, let):
 
 > [x let]                             pop   let // throw away top stack node
+
 > [a let a]                           apply let // evaluate top stack List
+
 > [[] cons]                           quote let // wrap top stack node into a List
+
 > [quote a let a a]                   dup   let // duplicate top stack node
+
 > [quote a let quote b let a apply b] dip   let // apply 2nd stack node
+
 > [quote a let quote e let a e]       swap  let // apply 2nd stack node
 
 I like this much better than adding them to the core language!
@@ -65,6 +75,7 @@ I like this much better than adding them to the core language!
 You may have also noticed that the standard Lisp-esque car and cdr (or Haskell-esque head and tail) are missing from the language. They can be defined in terms of uncons:
 
 > [snoc swap drop] head let
+
 > [snoc drop]      tail let
 
 ## Boolean Logic ##
@@ -78,16 +89,23 @@ Using the symbols #t and #f to mean True and False (in Scheme-esque fashion), we
 And we can start implementing the standard Boolean logic operators (not, and, or, xor) in terms of this:
 
 > [#f #t if]                   not? let
+
 > [[] [drop #f] if]            and? let
+
 > [[drop #t] [#t #t #f eq] if] or?  let
+
 > [#t [not?] [] eq]            xor? let
 
 Also useful will be to create function that check equality to well known values and return #t or #f for use with other Boolean operators:
 
 > [#t #f eq]  equal? let
+
 > [[] equal?] empty? let
+
 > [0 equal?]  zero?  let
+
 > []          true?  let // wow, easy!
+
 > [not?]      false? Let
 
 # What now? #
