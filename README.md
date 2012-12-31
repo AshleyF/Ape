@@ -12,7 +12,7 @@ The language and data structure revolves around an extremely simplified AST stru
 
 We have atomic Words and composite Quotations (of Words and/or other Quotes). That’s it! There is no native concept of Integers, Booleans, etc.  Only Symbols. Further, there are only four primitive operations!
 
-# cons/snoc #
+## cons/snoc ##
 
 We need a means of composing and decomposing structures. This is done through cons (adding a given node to a List) and snoc (breaking a given List into it’s “head” node and “tail” remaining List). For example:
 
@@ -26,7 +26,7 @@ Decomposition yields the opposite:
 > [a b c]   snoc yields a [b c]
 > [[a] b c] snoc yields [a] [b c]
 
-# eq #
+## eq ##
 
 For Symbols to be of any use at all, we need at least one operation we can perform on them. The single operation in the language is eq which compares two Symbols (or Lists) and evaluates one or another expression as a result. It takes four arguments, compares the first two and evaluates the third or fourth. For example:
 
@@ -37,7 +37,7 @@ The equality comparison walks the complete structure in the case of Quotes. For 
 
 > [foo bar [baz]] [foo bar [baz]] [yes] [no] eq yields yes
 
-# let #
+## let ##
 
 The final missing piece is a means of abstraction. We need to be able to introduce new “words” to the language and then use them as if they were primitives. For this, we have let.
 
@@ -67,7 +67,7 @@ You may have also noticed that the standard Lisp-esque car and cdr (or Haskell-e
 > [snoc swap pop] head let
 > [snoc pop]      tail let
 
-# Boolean Logic #
+## Boolean Logic ##
 
 There is no Boolean type in the language. There is not even an if word! Let’s implement them!
 
