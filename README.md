@@ -6,7 +6,7 @@ What I really set out to do was to see what the minimal set of primitives should
 
 The language and data structure revolves around an extremely simplified AST structure:
 
-type Syntax = Word of string | Quote of Syntax list
+> type Syntax = Word of string | Quote of Syntax list
 
 We have atomic Words and composite Quotations (of Words and/or other Quotes). That’s it! There is no native concept of Integers, Booleans, etc.  Only Symbols. Further, there are only four primitive operations!
 
@@ -62,8 +62,8 @@ I like this much better than adding them to the core language!
 
 You may have also noticed that the standard Lisp-esque car and cdr (or Haskell-esque head and tail) are missing from the language. They can be defined in terms of uncons:
 
-> [uncons swap pop] head let
-> [uncons pop]      tail let
+> [snoc swap pop] head let
+> [snoc pop]      tail let
 
 # Boolean Logic #
 
@@ -90,4 +90,8 @@ Also useful will be to create function that check equality to well known values 
 
 # What now? #
 
-http://blogs.msdn.com/b/ashleyf/archive/tags/ape/
+Obviously we can add more primitive operations. We could see how far we can take it as is; perhaps adding Church numerals and such (something like http://blogs.msdn.com/b/ashleyf/archive/2008/12/03/the-lambda-calculus.aspx ).
+
+I did, at one point, add Turtle Graphics primitives, which turned out pretty fun: http://blogs.msdn.com/b/ashleyf/archive/2009/04/30/turtle-soup.aspx
+
+The mechanics of the interpreter could use some tweaks. One idea is to change the dictionary to a list of dictionaries and then add/remove frames as definitions are expanded and then have completed execution. This would give nested let bindings that go out of scope.
